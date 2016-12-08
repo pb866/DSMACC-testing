@@ -247,3 +247,21 @@
 
     kroprim  = 3.70d-14*EXP(-460.0/temp)
     krosec   = 1.80d-14*EXP(-260.0/temp)
+    
+    
+    
+    
+    
+    
+    !mcm 3.1
+    
+     KRO2NO = 2.54D-12*EXP(360/TEMP)
+KRO2HO2 = 2.91D-13*EXP(1300/TEMP)
+KAPHO2 = 4.30D-13*EXP(1040/TEMP)
+KAPNO = 8.10D-12*EXP(270/TEMP)
+KRO2NO3 = 2.50D-12
+KNO3AL = 1.44D-12*EXP(-1862/TEMP)
+KDEC = 1.00D+06
+KROPRIM = 3.70D-14*EXP(-460/TEMP)
+KROSEC = 1.80D-14*EXP(-260/TEMP)
+KMT17 = (K170*K17I*F17)/(K170+K17I)

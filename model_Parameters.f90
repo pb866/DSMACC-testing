@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Parameters.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -38,19 +38,19 @@ MODULE model_Parameters
 ! NFAM - Number of Prod/Loss Families
   INTEGER, PARAMETER :: NFAM = 1 
 ! NVARACT - Number of Active species
-  INTEGER, PARAMETER :: NVARACT = 3 
+  INTEGER, PARAMETER :: NVARACT = 5 
 ! NFIX - Number of Fixed species
   INTEGER, PARAMETER :: NFIX = 1 
 ! NREACT - Number of reactions
-  INTEGER, PARAMETER :: NREACT = 2 
+  INTEGER, PARAMETER :: NREACT = 3 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
   INTEGER, PARAMETER :: NFIXST = 6 
 ! NONZERO - Number of nonzero entries in Jacobian
-  INTEGER, PARAMETER :: NONZERO = 10 
+  INTEGER, PARAMETER :: NONZERO = 14 
 ! LU_NONZERO - Number of nonzero entries in LU factoriz. of Jacobian
-  INTEGER, PARAMETER :: LU_NONZERO = 10 
+  INTEGER, PARAMETER :: LU_NONZERO = 15 
 ! CNVAR - (NVAR+1) Number of elements in compressed row format
   INTEGER, PARAMETER :: CNVAR = 6 
 ! NLOOKAT - Number of species to look at
@@ -64,9 +64,9 @@ MODULE model_Parameters
 !   VAR(ind_spc) = C(ind_spc)
 
   INTEGER, PARAMETER :: ind_M = 1 
-  INTEGER, PARAMETER :: ind_NO2 = 2 
-  INTEGER, PARAMETER :: ind_O = 3 
-  INTEGER, PARAMETER :: ind_NO = 4 
+  INTEGER, PARAMETER :: ind_O = 2 
+  INTEGER, PARAMETER :: ind_NO = 3 
+  INTEGER, PARAMETER :: ind_NO2 = 4 
   INTEGER, PARAMETER :: ind_O3 = 5 
 
 ! Index declaration for fixed species in C

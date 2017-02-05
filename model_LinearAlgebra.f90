@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_LinearAlgebra.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -646,13 +646,13 @@ SUBROUTINE KppSolve ( JVS, X )
 ! X - Vector for variables
   REAL(kind=dp) :: X(NVAR)
 
-  X(3) = X(3)-JVS(3)*X(1)-JVS(4)*X(2)
-  X(4) = X(4)-JVS(6)*X(2)
-  X(5) = X(5)-JVS(8)*X(1)-JVS(9)*X(3)
-  X(5) = X(5)/JVS(10)
-  X(4) = X(4)/JVS(7)
-  X(3) = X(3)/JVS(5)
-  X(2) = X(2)/JVS(2)
+  X(2) = X(2)-JVS(2)*X(1)
+  X(4) = X(4)-JVS(8)*X(3)
+  X(5) = X(5)-JVS(11)*X(1)-JVS(12)*X(2)-JVS(13)*X(3)-JVS(14)*X(4)
+  X(5) = X(5)/JVS(15)
+  X(4) = (X(4)-JVS(10)*X(5))/(JVS(9))
+  X(3) = (X(3)-JVS(6)*X(4)-JVS(7)*X(5))/(JVS(5))
+  X(2) = (X(2)-JVS(4)*X(4))/(JVS(3))
   X(1) = X(1)/JVS(1)
       
 END SUBROUTINE KppSolve
@@ -681,15 +681,15 @@ SUBROUTINE KppSolveTR ( JVS, X, XX )
   REAL(kind=dp) :: XX(NVAR)
 
   XX(1) = X(1)/JVS(1)
-  XX(2) = X(2)/JVS(2)
+  XX(2) = X(2)/JVS(3)
   XX(3) = X(3)/JVS(5)
-  XX(4) = X(4)/JVS(7)
-  XX(5) = X(5)/JVS(10)
+  XX(4) = (X(4)-JVS(4)*XX(2)-JVS(6)*XX(3))/(JVS(9))
+  XX(5) = (X(5)-JVS(7)*XX(3)-JVS(10)*XX(4))/(JVS(15))
   XX(5) = XX(5)
-  XX(4) = XX(4)
-  XX(3) = XX(3)-JVS(9)*XX(5)
-  XX(2) = XX(2)-JVS(4)*XX(3)-JVS(6)*XX(4)
-  XX(1) = XX(1)-JVS(3)*XX(3)-JVS(8)*XX(5)
+  XX(4) = XX(4)-JVS(14)*XX(5)
+  XX(3) = XX(3)-JVS(8)*XX(4)-JVS(13)*XX(5)
+  XX(2) = XX(2)-JVS(12)*XX(5)
+  XX(1) = XX(1)-JVS(2)*XX(2)-JVS(11)*XX(5)
       
 END SUBROUTINE KppSolveTR
 

@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Monitor.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -26,18 +26,19 @@ MODULE model_Monitor
 
 
   CHARACTER(LEN=15), PARAMETER, DIMENSION(5) :: SPC_NAMES = (/ &
-     'M              ','NO2            ','O              ', & ! index 1 - 3
-     'NO             ','O3             ' /)
+     'M              ','O              ','NO             ', & ! index 1 - 3
+     'NO2            ','O3             ' /)
 
   INTEGER, DIMENSION(1) :: LOOKAT
   INTEGER, DIMENSION(1) :: MONITOR
   CHARACTER(LEN=15), DIMENSION(1) :: SMASS
-  CHARACTER(LEN=100), PARAMETER, DIMENSION(2) :: EQN_NAMES = (/ &
-     'M + O --> M + O3                                                                                    ', & ! index 1
-     '  NO2 --> O + NO                                                                                    ' /)
+  CHARACTER(LEN=100), PARAMETER, DIMENSION(3) :: EQN_NAMES = (/ &
+     'NO + O3 --> NO2                                                                                     ', & ! index 1
+     '  M + O --> M + O3                                                                                  ', & ! index 2
+     '    NO2 --> O + NO                                                                                  ' /)
 
-  CHARACTER(LEN=15), PARAMETER, DIMENSION(2) :: EQN_TAGS = (/ &
-     '               ','               ' /)
+  CHARACTER(LEN=15), PARAMETER, DIMENSION(3) :: EQN_TAGS = (/ &
+     '               ','               ','               ' /)
 
   CHARACTER(LEN=15), DIMENSION(1) :: FAM_NAMES
 ! INLINED global variables

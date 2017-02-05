@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Function.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -58,15 +58,16 @@ SUBROUTINE Fun ( V, F, RCT, Vdot )
 
 
 ! Computation of equation rates
-  A(1) = RCT(1)*V(1)*V(3)
-  A(2) = RCT(2)*V(2)
+  A(1) = RCT(1)*V(3)*V(5)
+  A(2) = RCT(2)*V(1)*V(2)
+  A(3) = RCT(3)*V(4)
 
 ! Aggregate function
   Vdot(1) = 0
-  Vdot(2) = -A(2)
-  Vdot(3) = -A(1)+A(2)
-  Vdot(4) = A(2)
-  Vdot(5) = A(1)
+  Vdot(2) = -A(2)+A(3)
+  Vdot(3) = -A(1)+A(3)
+  Vdot(4) = A(1)-A(3)
+  Vdot(5) = -A(1)+A(2)
       
 END SUBROUTINE Fun
 

@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Util.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -676,7 +676,7 @@ SUBROUTINE Shuffle_user2kpp ( V_USER, V )
 ! V - Concentrations of variable species (local)
   REAL(kind=dp) :: V(NVAR)
 
-  V(4) = V_USER(1)
+  V(3) = V_USER(1)
   V(5) = V_USER(2)
   V(1) = V_USER(3)
       
@@ -702,7 +702,7 @@ SUBROUTINE Shuffle_kpp2user ( V, V_USER )
 ! V_USER - Concentration of variable species in USER's order
   REAL(kind=dp) :: V_USER(NVAR)
 
-  V_USER(1) = V(4)
+  V_USER(1) = V(3)
   V_USER(2) = V(5)
   V_USER(3) = V(1)
       

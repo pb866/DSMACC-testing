@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model.map
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -36,11 +36,11 @@ REORDER  - ON
 ! NVAR - Number of Variable species
   INTEGER, PARAMETER :: NVAR = 5 
 ! NVARACT - Number of Active species
-  INTEGER, PARAMETER :: NVARACT = 3 
+  INTEGER, PARAMETER :: NVARACT = 5 
 ! NFIX - Number of Fixed species
   INTEGER, PARAMETER :: NFIX = 1 
 ! NREACT - Number of reactions
-  INTEGER, PARAMETER :: NREACT = 2 
+  INTEGER, PARAMETER :: NREACT = 3 
 ! NVARST - Starting of variables in conc. vect.
   INTEGER, PARAMETER :: NVARST = 1 
 ! NFIXST - Starting of fixed in conc. vect.
@@ -49,8 +49,8 @@ REORDER  - ON
 ### Species -------------------------------------------
 
 Variable species
-  1 = M (r)       3 = O (r)       5 = O3 (n)    
-  2 = NO2 (r)     4 = NO (n)    
+  1 = M (r)       3 = NO (r)      5 = O3 (r)    
+  2 = O (r)       4 = NO2 (r)   
 
 Fixed species
 

@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_JacobianSP.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -31,17 +31,19 @@ MODULE model_JacobianSP
 ! Sparse Jacobian Data
 
 
-  INTEGER, PARAMETER, DIMENSION(10) :: LU_IROW = (/ &
-       1,  2,  3,  3,  3,  4,  4,  5,  5,  5 /)
+  INTEGER, PARAMETER, DIMENSION(15) :: LU_IROW = (/ &
+       1,  2,  2,  2,  3,  3,  3,  4,  4,  4,  5,  5, & ! index 1 - 12
+       5,  5,  5 /)
 
-  INTEGER, PARAMETER, DIMENSION(10) :: LU_ICOL = (/ &
-       1,  2,  1,  2,  3,  2,  4,  1,  3,  5 /)
+  INTEGER, PARAMETER, DIMENSION(15) :: LU_ICOL = (/ &
+       1,  1,  2,  4,  3,  4,  5,  3,  4,  5,  1,  2, & ! index 1 - 12
+       3,  4,  5 /)
 
   INTEGER, PARAMETER, DIMENSION(6) :: LU_CROW = (/ &
-       1,  2,  3,  6,  8, 11 /)
+       1,  2,  5,  8, 11, 16 /)
 
   INTEGER, PARAMETER, DIMENSION(6) :: LU_DIAG = (/ &
-       1,  2,  5,  7, 10, 11 /)
+       1,  3,  5,  9, 15, 16 /)
 
 
 END MODULE model_JacobianSP

@@ -13,7 +13,7 @@
 !        R. Sander, Max-Planck Institute for Chemistry, Mainz, Germany
 ! 
 ! File                 : model_Rates.f90
-! Time                 : Sun Feb  5 00:06:35 2017
+! Time                 : Sun Feb  5 00:14:04 2017
 ! Working directory    : /work/home/dp626/DSMACC2
 ! Equation file        : model.kpp
 ! Output root filename : model
@@ -190,8 +190,9 @@ SUBROUTINE Update_RCONST ( )
 
 ! End INLINED RCONST
 
-  RCONST(1) = (k2)
-  RCONST(2) = (J(4))
+  RCONST(1) = (k1)
+  RCONST(2) = (k2)
+  RCONST(3) = (J(4))
       
 END SUBROUTINE Update_RCONST
 

@@ -24,7 +24,7 @@ groups = tuple(nc.groups)
 
 
 #s = shift factor on x axis
-s=-0
+s=-6*6
 
 for i in plots:
     
@@ -57,7 +57,7 @@ for i in plots:
     
 # for the nox    
 im = image.imread('gecko-isoprene/NOx.png')
-imshow(im, aspect='auto', extent=(0+s, 430+s, 10e-1, 10e1), zorder=-1, cmap=cm.gray)
+imshow(im, aspect='auto', extent=(0+s, 430+s, 10e-1, 1e1), zorder=-1, cmap=cm.gray)
 title('NOx')
 for g in groups:
     

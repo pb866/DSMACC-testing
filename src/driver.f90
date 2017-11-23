@@ -15,17 +15,17 @@ REAL(dp) :: DIURNAL_OLD(NVAR,3000), DIURNAL_NEW(NVAR,3000)
 REAL(dp) :: DIURNAL_RATES(NREACT, 3000)
 REAL(dp) :: FULL_CONCS(NSPEC,999999), concs(NSPEC)
 ! Photolysis calculation variables
-character(len=50), allocatable ::  s_names(:), r_names(:)
+ character(len=50), allocatable ::  s_names(:), r_names(:)
 
 
 ! DO NOT NEED ABOVE
 
 REAL(dp) :: NOXRATIO,Alta,Fracdiff,SpeedRatio,oldfracdiff,FRACCOUNT, newtime
-character(50) :: counter, cw,filename
-character (3) :: ln
+ character(50) :: counter, cw,filename
+ character (10) :: ln
 INTEGER  :: ERROR, IJ, PE ,runtimestep,ICNTRL_U(20)
 Integer  :: CONSTNOXSPEC, JK, full_counter, line, nc_set, nc_counter
-character(200) :: dummychar
+ character(200) :: dummychar
 integer :: run_counter = 0
 
 
@@ -64,6 +64,12 @@ allocate(spin_const(NVAR))
 call getarg(1,counter)!name
 call getarg(2,ln)!location in Init Cons
 read(ln, *) line
+
+call getarg(3,ln)
+read(ln, *) obs
+
+
+
 !set OUTPUT_UNIT to 6 in globals file.
 open(UNIT=output_unit,FILE='Outputs/'//trim(counter)//'.sdout')
 
@@ -85,11 +91,18 @@ WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP, M, RCONST(:NREACT)
 TEND = TEND + spinup*dt !additional spinup time added if included
 
 
+print*,  achar(27)//'[2J'
+print*, 'Run Progress'
 time_loop: DO WHILE (time < TEND)! This is the main loop for integrations
 run_counter = run_counter+1
 
 
 CALL Update_RCONST()! Update the rate constants
+
+if (obs>0) then
+        include 'include.obs'
+end if
+
 
 ICNTRL_U(:)=0
 CALL INTEGRATE( TIN = time, TOUT = time+DT, RSTATUS_U = RSTATE, &! Integrate the model +1 timestep
@@ -115,13 +128,17 @@ time = RSTATE(1)
 Daycounter=Daycounter+1
 
 
+
+
+!print*, 'list of nox locations, no need to loop over all species again'
+
 IF (CONSTRAIN_NOX) THEN
     write (OUTPUT_UNIT,*) 'Constraining NOx'
     TNOX=0.! Calcualte the total NOx in the box
     TNOX=TNOX+sum(C(1:NVAR)*NOX(1:NVAR))
     ! Update all NOx variables so that the total NOx in the box is the same as it was
     DO I=1,NVAR
-    IF (NOX(I) .NE. 0)  C(I)=C(I)*TNOX_OLD/TNOX
+      IF (NOX(I) .NE. 0)  C(I)=C(I)*TNOX_OLD/TNOX
     ENDDO
 ENDIF
 
@@ -129,18 +146,14 @@ ENDIF
 
 
 !!If constrain species concentrations if necessary
-IF (spinup < 1)  then
-    DO I=1,NVAR
-    IF (CONSTRAIN(I) .GT. 0) C(I)=CONSTRAIN(I)
-    END DO
-else
-    DO I=1,NVAR
-    IF (spin_const(I) .GT. 0)  C(I)=spin_const(I)
-    END DO
 
-    spinup = spinup-1
-    if (spinup<1) deallocate(spin_const)
-end if
+DO I=1,NVAR
+    IF (CONSTRAIN(I) .GT. 0) C(I)=CONSTRAIN(I)
+END DO
+
+
+
+
 
 
 newtime = Jday*86400 + DAYCOUNTER*dt
@@ -151,8 +164,13 @@ WRITE (RATE_UNIT) newtime,LAT, LON, PRESS, TEMP, M, RCONST(:NREACT)
 
 if (run_counter > nc_set) then !increased at start
 
-    if (mod(run_counter/nc_set,10)==0) then
-        print*, ''//achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
+    DO i = 1,daycounter
+    !write (SPEC_UNIT, 999) output_s(i,:) !(output_s(i,ij), ij=1,NSPEC)
+    !write (RATE_UNIT, 999) output_r(i,:) !(output_r(i,ij), ij=1,NREACT)
+    end do
+
+    if (mod(run_counter/nc_set,20)==0) then
+        print*, achar(27)//'[f', achar(27)//'['//trim(ln)//'B', achar(27)//'[94m |',repeat('#',floor(time/TEND*20)), repeat(' ',int(20-floor(time/TEND*20))),'| '//achar(27)//'[97m'//trim(counter)
     end if
 
 else

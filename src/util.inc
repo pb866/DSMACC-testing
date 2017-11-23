@@ -23,6 +23,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     ALBEDO=0.
     RP1=0.
 
+    
     do I=1,NSPEC+1
     FOUND=0
     if (SPEC_NAME(I) .NE. '') then
@@ -64,13 +65,36 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
     enddo
 
+ 
+  
+   do Q=1,NFIX 
 
+        if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(NVAR+Q))) then 
+            FOUND=1
+            FIX(Q-NVAR)=CONCS(I) 
+            print*, 'mechanism-constrained ', spec_name(i),&
+                            &' at ', concs(I)
+            
+  
+            if (trim(SPEC_NAME(I)) .EQ. 'CH4') then 
+                SPEC_CH4=.TRUE.
+             
+
+            else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
+                SPEC_H2=.TRUE.
+
+            end if            
+
+        endif
+
+    enddo
 
 
     if (FOUND .ne. 1) then
 
     SELECT CASE (TRIM(SPEC_NAME(I)))
 
+   
     CASE('H2O')
     H2O=CONCS(I)
 
@@ -148,12 +172,13 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
 
                     if (TRIM(SPEC_NAME(I)) .EQ. TRIM(SPC_NAMES(Q))) then
                         FOUND=1
-                        FIX(Q-NVAR)=CONCS(I)
+                        FIX(Q)=CONCS(I)
                         print*, 'hard-constrained ', spec_name(i),&
                             &' at ', concs(I)
 
                         if (trim(SPEC_NAME(I)) .EQ. 'EMISS') then
                             i_EMISS = (Q-NVAR)
+                                
                         else if (trim(SPEC_NAME(I)) .EQ. 'CH4') then
                             SPEC_CH4=.TRUE.
                         else if (trim(SPEC_NAME(I)) .EQ. 'H2') then
@@ -203,7 +228,7 @@ NOXARRAY(:)= (/'NO2   ','NO    ','NO3   ','HONO  ','HNO2  ',&
     FIX(:)=FIX(:)*CFACTOR
     if (i_EMISS>0) FIX(i_EMISS)= FIX(i_EMISS)/CFACTOR
     !correct emissions ^^
-
+    FIX(indf_R) = 1.
 
     if (CONSTRAIN_NOX) then
         COUNT_NOX_CONSTRAINTS=0

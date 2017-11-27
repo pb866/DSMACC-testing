@@ -28,11 +28,9 @@ nocol="\033[0m"
 #################
 
 
-#yarcc: 
+#yarcc:
 #	echo 'running on YARCC'
 YARCC := $(module load Anaconda2/4.3.1 ifort/2013_sp1.3.174 icc/2013_sp1.3.174)
-
-
 
 PROG = model
 
@@ -131,7 +129,7 @@ change: # changes organic in model.kpp , define new mech by typing mechanism = <
 new: distclean depend update_submodule tuv
 	@mkdir -p Outputs
 	@mkdir -p save
-	@mkdir -p save/ncfiles
+	@mkdir -p save/results
 	@mkdir -p save/exec
 	@python -O -m py_compile AnalysisTools/explore_dsmacc.py
 	@mv AnalysisTools/explore_dsmacc.pyo dsmacc.pyc
@@ -173,7 +171,7 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	cp src/constants.f90 ./model_constants.f90
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	echo 'now run make to compile'
-	
+
 
 
 ini: # generate kpp files with emission and deposition data
@@ -218,12 +216,12 @@ savemodel: rmmodel #save executable, kpp file and 1 nc file (optional)
 
 #lists all models
 lsmodels: # list all saved models
-	ls ./save/exec
+	@ls ./save/exec
 
 #removes a saved model - make @rmmodel name=<you@rmodelname>
 rmmodel: # delete saved scenarios
 	-rm -rfI ./save/exec/$(name)
-	-rm -i ./save/ncfiles/$(name).nc
+	-rm -i ./save/results/*$(name)*
 update:
 	git pull origin master
 

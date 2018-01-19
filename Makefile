@@ -4,7 +4,7 @@
   # FDEP ?= 'depos.dat'           # data file variable for makedepos script
   # FEMI ?= 'emiss.dat'           # data file variable for makedepos script
   # FKPP ?= "'inorganic organic'" # kpp input file variable for makedepos scrpit
-  # FSTD  ?= 1                    # option to extend standard vd to all species
+  # FSTD  ?= 0                    # option to extend standard vd to all species
   # export FDEP, FEMI, FKPP, FSTD
   # MODELKPP ?= '--custom'
 
@@ -175,8 +175,8 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 
 
 ini: # generate kpp files with emission and deposition data
-	cd ./mechanisms && perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
-	perl makeemiss.pl $(FKPP) $(FEMI) && cd ..
+	perl makedepos.pl $(FKPP) $(FDEP) $(FSTD) && \
+	perl makeemiss.pl $(FKPP) $(FEMI)
 
 tidy: # removes fortran files from main directory whist retaining model and run data!
 	@rm model_* *.mod del* *.del

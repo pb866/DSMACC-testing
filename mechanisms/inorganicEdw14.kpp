@@ -71,7 +71,6 @@ NO2SCAV = IGNORE ;
 {50.}   DUMMY = 0.0001DUMMY : 1e-3*EXP(0./TEMP) ;
 {51.}	MAGIC = CLNO2 : 0.5e-5 ;
 {57.} 	CLNO2 = CL : 3.107*J(1)+0.0267*J(4) ;
-{58.} 	EMISS = NO : 2e-5 ;
 {59.} 	FORMSRC = HCHO : 5e-5 ;
 {60.} 	HONOSRC = HONO : 5e-5 ;
 {61.} 	OH + HCL = CL : 1.8D-12*EXP(-250/TEMP) ;

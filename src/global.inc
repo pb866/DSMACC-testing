@@ -16,6 +16,9 @@
   INTEGER, PARAMETER :: SPEC_UNIT = 10
   INTEGER, PARAMETER :: RATE_UNIT = 12
   INTEGER, PARAMETER :: jmax= 8100, szabin=19
+! Variable definintions for Edwards et al. (2014)
+  REAL(dp) :: DEPOSITION, O3DEPOSITION, HNO3DEPOSITION, N2O5DEPOSITION, N2O5HYD
+  REAL(dp) :: PNADEPOS, KNOSCAV, NOSCAVDEP, KNO2SCAV, NO2SCAVDEP
 
   character(len=3) :: mechanism
   REAL(dp), allocatable :: output_s(:,:),output_r(:,:)
@@ -26,4 +29,3 @@
   REAL(4) ::            svj_tj(kt,kj), szas(kt), jfactno2, jfacto1d
 !End photolysis variables
 #ENDINLINE {above lines go into MODULE KPP_ROOT_Global}
-

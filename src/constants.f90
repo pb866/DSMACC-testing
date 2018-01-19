@@ -7,7 +7,7 @@ MODULE constants
   INTEGER, PARAMETER :: mnsp=250, mre=2000
   INTEGER  :: i
   real(dp):: DFRACT
-  ! variables for zenith routine which calculates zenith angle
+! variables for zenith routine which calculates zenith angle
   REAL(dp) :: theta, secx, cosx
 ! generic reaction rate variables
 ! variables for calculation of photolysis reaction rates
@@ -34,7 +34,7 @@ real(dp)::hchocoeff, prodhcho , prodch3o,ch3ocoeff
 
 
 
-  INCLUDE './src/rate_coeff/new_rate.inc.def'
+  INCLUDE './src/rate_coeff/ratesPETE.inc.def'
 CONTAINS
 
 !**************************************************************************
@@ -52,9 +52,6 @@ CONTAINS
 
 ! Time2 is local time in hours
     Time2=mod(Time/(60.*60.), 24.)
-   
-  
-
     IF (TIME2 .LT. 0) TIME2=TIME2+24.
     LAT2=LAT
 
@@ -77,7 +74,7 @@ CONTAINS
 ! -------------------------------------------------------------------
 
 ! MCM -> extract -> kpp + include generic rate coeff -> rename
-    INCLUDE './src/rate_coeff/new_rate.inc.var'
+    INCLUDE './src/rate_coeff/ratesPETE.inc.var'
 
 ! ************************************************************************
 ! define photolysis reaction rates from cubic splines of the TUV output
@@ -131,8 +128,6 @@ CONTAINS
     DO i=1,jmax
       IF (j(i) .lt. 0.e0) j(i)=0.d0
     ENDDO
-
-
 
 
   END SUBROUTINE mcm_constants

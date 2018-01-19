@@ -2,12 +2,12 @@ Description: Optional,Do not write time more than once. ,,
 ,,,
 Index,Species,Constrain,Edw14
 ii,TIME,NA,518400.
-ii,TEMP,0,26824.
+ii,TEMP,0,268.24
 ii,LAT,0,40.135
 ii,LON,0,-109.47
 ii,JDAY,0,31.292
 ii,H2O,1,0.0034808
-ii,O3COL,1,350.
+ii,O3COL,1,323.
 ii,ALBEDO,1,0.85
 ii,PRESS,0,846.
 ii,FEMISS,1,1

@@ -1,0 +1,7 @@
+# Values taken from CAPRAM database, see e.g.,
+# P. Bräuer (2015), 'Extension and application of a tropospheric aqueous phase
+# chemical mechanism (CAPRAM) for aerosol and cloud models', Dissertation,
+# available at:
+# www.qucosa.de/recherche/frontdoor/?tx_slubopus4frontend[id]=urn:nbn:de:bsz:15-qucosa-183743
+
+#Species  vd / s-1

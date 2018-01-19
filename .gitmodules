@@ -4,3 +4,6 @@
 [submodule "TUV_5.2.1"]
 	path = TUV_5.2.1
 	url = https://github.com/pb866/TUV_DSMACC.git
+[submodule "mechanisms/programs/rmDUPRXN"]
+	path = mechanisms/programs/rmDUPRXN
+	url = git@github.com:pb866/rmDUPRXN.git

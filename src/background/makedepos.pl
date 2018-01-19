@@ -32,7 +32,7 @@ my @fkpp;#     list of file names (and paths) of input KPP files
 #              without file ending '.kpp'
 #              In script argument, put list in quotes
 #              and separate elements by whitespaces
-my $writefile;#output KPP file "depos.kpp"
+# $writefile:  output KPP file "depos.kpp"
 
 ########################################################################
 ### Retrieval of script arguments
@@ -119,7 +119,10 @@ foreach (@lines) {
 # Find standard value and save to vdstd.
 # If no standard value is defined in input file, use 5.00d-6.
 my @idx = grep { $dspc[$_] eq "DEPOS" } 0 .. $#dspc; # find index in array
-if ($idx[-1] > 0) { # for double entries, always the last entry is used
+if (!@idx) {
+  @idx = (-1)
+};
+if ($idx[-1] >= 0) { # for double entries, always the last entry is used
   $vdstd = $vd[$idx[-1]];
 } else {
   $vdstd = "5.00d-6"

@@ -7,3 +7,6 @@
 [submodule "mechanisms/programs/rmDUPRXN"]
 	path = mechanisms/programs/rmDUPRXN
 	url = git@github.com:pb866/rmDUPRXN.git
+[submodule "AnalysisTools/DSMACCanalysis"]
+	path = AnalysisTools/DSMACCanalysis
+	url = https://github.com/pb866/DSMACCanalysis.git

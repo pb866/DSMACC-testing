@@ -31,11 +31,13 @@ PROG = model
 
 # complete list of all f90 source files
 SRCS1 = $(wildcard model_*.f90)
-SRCS2 = $(wildcard TUV_5.2.1/*.f)
+SRCS2 = $(wildcard TUV_5.2.1/SRC/*.f)
+SRCS3 = $(wildcard TUV_5.2.1/SRC/RXN/*.f)
 
 # the object files are the same as the source files but with suffix ".o"
 OBJS1 := $(SRCS1:.f90=.o)
 OBJS2 := $(SRCS2:.f=.o)
+OBJS3 := $(SRCS3:.f=.o)
 
 MAKEFILE_INC = depend.mk
 
@@ -70,14 +72,14 @@ test:compiler
 # the dependencies depend on the link
 # the executable depends on depend and also on all objects
 # the executable is created by linking all objects
-$(PROG): depend $(OBJS1) $(OBJS2)
+$(PROG): depend $(OBJS1) $(OBJS2) $(OBJS3)
 	@perl -p -i -e 's/\!\s*EQUIVALENCE/EQUIVALENCE/g' model_Global.f90;
-	@$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) -o $@
+	@$(F90) $(F90FLAGS) $(OBJS1) $(OBJS2) $(OBJS3) -o $@
 	@echo 'DSMACC is loaded and ready to go!'
 
 # update file dependencies
-depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2)
-	@$(F_makedepend) $(SRCS1) $(SRCS2) > /dev/null 2>&1
+depend $(MAKEFILE_INC): $(SRCS1) $(SRCS2) $(SRCS3)
+	@$(F_makedepend) $(SRCS1) $(SRCS2) $(SRCS3) > /dev/null 2>&1
 
 clean: # remove others
 	@rm -f $(OBJS1) *model* *.mod *.log *~ depend.mk.old *.o *.sdout *.tee #$(OBJS2)
@@ -101,9 +103,10 @@ distclean: clean clear # clean all !
 	@rm -f *.png
 	@rm -f *.pyc
 
-tuv: # compile tuv!
+# compile tuv!
+tuv: compiler
 	@rm -rf DATAJ1/ DATAE1/ DATAS1/ params
-	@cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params .
+	@cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params TUV_5.2.1/INPUTS/MCMTUV .
 	@ -cd TUV_5.2.1 && make -s clean && make -s && echo 'tuv compiled' && cd ../
 
 large: # functions to deal with large mechanisms that wont compile !
@@ -151,7 +154,7 @@ kpp_custom: clean | ./Outputs  # makes kpp using the model.kpp file in src!
 	cp src/constants.f90 ./model_constants.f90
 	-./src/kpp/kpp-2.2.3_01/bin/kpp model.kpp
 	echo 'now run make to compile'
-	
+
 
 
 ini: # generate kpp files with emission and deposition data
@@ -163,7 +166,7 @@ tidy: # removes fortran files from main directory whist retaining model and run 
 
 %.o: %.f90
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
-TUV_5.2.1/%.o: %.f
+TUV_5.2.1/SRC/%.o: %.f
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
 
 ## section to run a server and display results on web page

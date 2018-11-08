@@ -100,6 +100,7 @@ distclean: clean clear # clean all !
 	@rm -rf DATA*
 	@rm -rf Outputs
 	@rm -f params
+	@rm -f MCMTUV
 	@rm -f *.png
 	@rm -f *.pyc
 

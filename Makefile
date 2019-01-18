@@ -31,8 +31,8 @@ PROG = model
 
 # complete list of all f90 source files
 SRCS1 = $(wildcard model_*.f90)
-SRCS2 = $(wildcard TUV_5.2.1/SRC/*.f)
-SRCS3 = $(wildcard TUV_5.2.1/SRC/RXN/*.f)
+SRCS2 = $(wildcard TUV/SRC/*.f)
+SRCS3 = $(wildcard TUV/SRC/RXN/*.f)
 
 # the object files are the same as the source files but with suffix ".o"
 OBJS1 := $(SRCS1:.f90=.o)
@@ -107,8 +107,8 @@ distclean: clean clear # clean all !
 # compile tuv!
 tuv: compiler
 	@rm -rf DATAJ1/ DATAE1/ DATAS1/ params
-	@cp -rf TUV_5.2.1/DATA* TUV_5.2.1/params TUV_5.2.1/INPUTS/MCMTUV .
-	@ -cd TUV_5.2.1 && make -s clean && make -s && echo 'tuv compiled' && cd ../
+	@cp -rf TUV/DATA* TUV/params TUV/INPUTS/MCMTUV .
+	@ -cd TUV && make -s clean && make -s && echo 'tuv compiled' && cd ../
 
 large: # functions to deal with large mechanisms that wont compile !
 	./src/large_mechanisms.py model_Jacobian*.f90
@@ -167,7 +167,7 @@ tidy: # removes fortran files from main directory whist retaining model and run 
 
 %.o: %.f90
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
-TUV_5.2.1/SRC/%.o: %.f
+TUV/SRC/%.o: %.f
 	$(F90) $(F90FLAGS) $(LINCLUDES) -c $<
 
 ## section to run a server and display results on web page

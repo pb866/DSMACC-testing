@@ -87,11 +87,11 @@ CONTAINS
 
         SELECT CASE (TUVvers)
          CASE(1)
-          INCLUDE './TUV_5.2.1/MCMv32.inc'
+          INCLUDE './TUV/MCMv32.inc'
          CASE(2)
-          INCLUDE './TUV_5.2.1/MCMv331.inc'
+          INCLUDE './TUV/MCMv331.inc'
          CASE(3)
-          INCLUDE './TUV_5.2.1/MCM-GECKO-A.inc'
+          INCLUDE './TUV/MCM-GECKO-A.inc'
          CASE DEFAULT
           STOP "Select TUV case between 1 and 3."
         END SELECT
